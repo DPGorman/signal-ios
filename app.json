@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "Signal",
+    "slug": "signal-ios",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "scheme": "signal",
+    "splash": {
+      "backgroundColor": "#0D0D0F"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.signal.creative"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-asset"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
