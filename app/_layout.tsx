@@ -31,7 +31,7 @@ export default function RootLayout() {
       useIdeas.getState().loadIdeas(user.id, current.id);
       useDeliverables.getState().loadDeliverables(user.id, current.id);
       useCanon.getState().loadCanon(user.id, current.id);
-      useConnections.getState().loadConnections(user.id);
+      useConnections.getState().loadConnections();
     }
   }, [user?.id, current?.id]);
 

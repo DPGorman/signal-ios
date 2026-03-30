@@ -11,17 +11,14 @@ export type Connection = {
 
 type ConnectionsStore = {
   connections: Connection[];
-  loadConnections: (userId: string) => Promise<void>;
+  loadConnections: () => Promise<void>;
 };
 
 export const useConnections = create<ConnectionsStore>((set) => ({
   connections: [],
 
-  loadConnections: async (userId: string) => {
-    const { data, error } = await supabase
-      .from("connections")
-      .select("*")
-      .eq("user_id", userId);
+  loadConnections: async () => {
+    const { data, error } = await supabase.from("connections").select("*");
     if (error) console.error("[Signal] loadConnections error:", error.message);
     set({ connections: data || [] });
   },
