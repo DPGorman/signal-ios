@@ -36,7 +36,7 @@ export default function HomeScreen() {
           useIdeas.getState().loadIdeas(u.id, proj.id),
           useDeliverables.getState().loadDeliverables(u.id, proj.id),
           useCanon.getState().loadCanon(u.id, proj.id),
-          useConnections.getState().loadConnections(),
+          useConnections.getState().loadConnections(u.id),
         ]);
       }
     }

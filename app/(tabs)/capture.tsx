@@ -12,9 +12,11 @@ import { useUser } from "@/stores/useUser";
 import { useIdeas } from "@/stores/useIdeas";
 import { useDeliverables } from "@/stores/useDeliverables";
 import { useCanon } from "@/stores/useCanon";
+import { useProjects } from "@/stores/useProjects";
 
 export default function CaptureScreen() {
   const user = useUser((s) => s.user);
+  const current = useProjects((s) => s.current);
   const captureIdea = useIdeas((s) => s.captureIdea);
   const isAnalyzing = useIdeas((s) => s.isAnalyzing);
   const deliverables = useDeliverables((s) => s.deliverables);
@@ -27,7 +29,7 @@ export default function CaptureScreen() {
   const handleCapture = async () => {
     if (!text.trim() || !user || isAnalyzing) return;
     Keyboard.dismiss();
-    const saved = await captureIdea(text.trim(), context.trim(), user.id, user.project_name, canonDocs, deliverables);
+    const saved = await captureIdea(text.trim(), context.trim(), user.id, current?.name || user.project_name, canonDocs, deliverables, current?.id);
     if (saved) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       setResult(saved); setText(""); setContext("");
