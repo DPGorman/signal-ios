@@ -25,7 +25,6 @@ export const useUser = create<UserStore>((set) => ({
         .from("users")
         .select("*")
         .limit(1);
-      console.log("[Signal] loadUser:", data?.length, "rows", error?.message || "ok");
       if (error) { set({ error: error.message, isLoading: false }); return; }
       if (data && data.length > 0) {
         set({ user: data[0], isLoading: false });
@@ -33,7 +32,6 @@ export const useUser = create<UserStore>((set) => ({
         set({ error: "No user found", isLoading: false });
       }
     } catch (e: any) {
-      console.log("[Signal] loadUser error:", e.message);
       set({ error: e.message, isLoading: false });
     }
   },

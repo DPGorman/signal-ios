@@ -61,7 +61,6 @@ export const useDeliverables = create<DeliverablesStore>((set, get) => ({
       insertData.due_date = dueDate;
     }
 
-    console.log("[Signal] addTask inserting:", JSON.stringify(insertData));
     const { data, error } = await supabase
       .from("deliverables")
       .insert([insertData])
@@ -72,7 +71,6 @@ export const useDeliverables = create<DeliverablesStore>((set, get) => ({
       console.error("[Signal] addTask error:", error);
       return;
     }
-    console.log("[Signal] addTask success:", data?.id);
     if (data) set({ deliverables: [data, ...get().deliverables] });
   },
 

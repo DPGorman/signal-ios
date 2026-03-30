@@ -28,11 +28,10 @@ export default function RootLayout() {
   // Step 3: once current project is set, load all project-scoped data
   useEffect(() => {
     if (user?.id && current?.id) {
-      console.log("[Signal] Loading data for project:", current.name, current.id);
       useIdeas.getState().loadIdeas(user.id, current.id);
       useDeliverables.getState().loadDeliverables(user.id, current.id);
       useCanon.getState().loadCanon(user.id, current.id);
-      useConnections.getState().loadConnections();
+      useConnections.getState().loadConnections(user.id);
     }
   }, [user?.id, current?.id]);
 

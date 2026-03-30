@@ -31,7 +31,6 @@ export const useProjects = create<ProjectsStore>((set, get) => ({
       .eq("user_id", userId)
       .order("created_at", { ascending: true });
     const projects = data || [];
-    console.log("[Signal] Projects loaded:", projects.length, projects.map(p => p.name));
     // Always set the first project as current if none selected
     const current = get().current;
     const activeCurrent = current && projects.find(p => p.id === current.id);

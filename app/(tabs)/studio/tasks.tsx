@@ -27,7 +27,6 @@ export default function TasksScreen() {
   const doneTasks = tasks.filter((d) => d.is_complete);
 
   const handleAdd = React.useCallback(async () => {
-    console.log("[Signal] handleAdd called, text state:", JSON.stringify(text));
     const t = text.trim();
     if (!t || !user || busy) return;
     setBusy(true);
