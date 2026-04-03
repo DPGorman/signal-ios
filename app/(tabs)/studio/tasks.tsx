@@ -67,7 +67,7 @@ function TaskDetailModal({
   const [newStep, setNewStep] = useState("");
   const [notes, setNotes] = useState(task?.notes || "");
   const [showDueOptions, setShowDueOptions] = useState(false);
-  const notesTimer = useRef<ReturnType<typeof setTimeout>>();
+  const notesTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   React.useEffect(() => {
     setNotes(task?.notes || "");
@@ -508,7 +508,7 @@ export default function TasksScreen() {
       {/* Header */}
       <View style={{ paddingHorizontal: 20, paddingTop: 12, paddingBottom: 8 }}>
         <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-          <TouchableOpacity onPress={() => router.push("/(tabs)/")}>
+          <TouchableOpacity onPress={() => router.push("/(tabs)" as any)}>
             <Text style={{ color: C.gold, fontSize: 14 }}>← Home</Text>
           </TouchableOpacity>
           {activeList === "session" && (

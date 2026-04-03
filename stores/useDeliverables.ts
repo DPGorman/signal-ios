@@ -22,10 +22,10 @@ export type Deliverable = {
   created_at: string;
   idea?: { text: string; category: string };
   is_starred?: boolean;
-  session_date?: string;
+  session_date?: string | null;
   steps?: Step[];
   notes?: string;
-  list_name?: string;
+  list_name?: string | null;
   duration_minutes?: number;
 };
 
