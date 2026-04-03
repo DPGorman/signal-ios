@@ -126,18 +126,42 @@ export default function HomeScreen() {
           <Text style={{ fontSize: 12, color: C.textMuted }}>▾</Text>
         </TouchableOpacity>
 
-        {/* Last task */}
-        <TouchableOpacity onPress={() => router.push("/(tabs)/studio/tasks")} activeOpacity={0.7} style={{ marginBottom: 40, paddingHorizontal: 8 }}>
-          {lastTask ? (
-            <Text style={{ fontSize: 18, color: lastTask.is_complete ? C.textDisabled : C.textSecondary, fontStyle: "italic", lineHeight: 30, textAlign: "center", textDecorationLine: lastTask.is_complete ? "line-through" : "none" }}>
-              {lastTask.text}
-            </Text>
+        {/* Today's Session summary */}
+        {(() => {
+          const todayStr = new Date().toISOString().split("T")[0];
+          const sessionTasks = deliverables.filter((d: any) => d.type === "task" && !d.is_complete && d.session_date === todayStr);
+          return sessionTasks.length > 0 ? (
+            <TouchableOpacity onPress={() => router.push("/(tabs)/studio/tasks")} activeOpacity={0.7}
+              style={{ marginBottom: 28, backgroundColor: C.gold + "11", borderRadius: 14, padding: 16, borderWidth: 1, borderColor: C.gold + "33" }}>
+              <View style={{ flexDirection: "row", alignItems: "center", gap: 8, marginBottom: 8 }}>
+                <Text style={{ fontSize: 16, color: C.gold }}>☀</Text>
+                <Text style={{ fontSize: 14, color: C.gold, fontWeight: "600" }}>Today's Session</Text>
+                <View style={{ flex: 1 }} />
+                <Text style={{ fontSize: 11, color: C.gold }}>{sessionTasks.length} {sessionTasks.length === 1 ? "task" : "tasks"} →</Text>
+              </View>
+              {sessionTasks.slice(0, 3).map((t: any) => (
+                <Text key={t.id} numberOfLines={1} style={{ fontSize: 13, color: C.textSecondary, lineHeight: 22, paddingLeft: 24 }}>
+                  {t.is_starred ? "★ " : ""}{t.text}
+                </Text>
+              ))}
+              {sessionTasks.length > 3 && (
+                <Text style={{ fontSize: 11, color: C.textMuted, paddingLeft: 24, marginTop: 2 }}>+{sessionTasks.length - 3} more</Text>
+              )}
+            </TouchableOpacity>
           ) : (
-            <Text style={{ fontSize: 18, color: C.textMuted, fontStyle: "italic", lineHeight: 30, textAlign: "center" }}>
-              No tasks yet. Tap to add one.
-            </Text>
-          )}
-        </TouchableOpacity>
+            <TouchableOpacity onPress={() => router.push("/(tabs)/studio/tasks")} activeOpacity={0.7} style={{ marginBottom: 28, paddingHorizontal: 8 }}>
+              {lastTask ? (
+                <Text style={{ fontSize: 18, color: lastTask.is_complete ? C.textDisabled : C.textSecondary, fontStyle: "italic", lineHeight: 30, textAlign: "center", textDecorationLine: lastTask.is_complete ? "line-through" : "none" }}>
+                  {lastTask.text}
+                </Text>
+              ) : (
+                <Text style={{ fontSize: 18, color: C.textMuted, fontStyle: "italic", lineHeight: 30, textAlign: "center" }}>
+                  No tasks yet. Tap to add one.
+                </Text>
+              )}
+            </TouchableOpacity>
+          );
+        })()}
 
         {/* Capture */}
         <NavCard icon="✦" label="Capture" sub="Send a signal" color={C.gold} route="/(tabs)/capture" style={{ marginBottom: 10 }} />
